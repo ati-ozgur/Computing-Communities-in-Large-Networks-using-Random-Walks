@@ -303,7 +303,7 @@ def compare_algos(G, K_true):
     print("\tBest modularity: Q = ", Qs[Qmax_index])
     print("\tRuntime: ", wt_time, " seconds")
     my_best_part = partition_to_plot(coms, parts[Qmax_index])
-    nx.draw(G, pos, node_color= my_best_part.values())
+    nx.draw(G, pos, node_color= list(my_best_part.values()))
     plt.show()
 
     t = 5
@@ -316,7 +316,7 @@ def compare_algos(G, K_true):
     print("\tBest modularity: Q = ", Qs[Qmax_index])
     print("\tRuntime: ", wt_time, " seconds")
     my_best_part = partition_to_plot(coms, parts[Qmax_index])
-    nx.draw(G, pos, node_color= my_best_part.values())
+    nx.draw(G, pos, node_color= list(my_best_part.values()))
     plt.show()
 
     t = 8
@@ -329,12 +329,12 @@ def compare_algos(G, K_true):
     print("\tBest modularity: Q = ", Qs[Qmax_index])
     print("\tRuntime: ", wt_time, " seconds")
     my_best_part = partition_to_plot(coms, parts[Qmax_index])
-    nx.draw(G, pos, node_color= my_best_part.values())
+    nx.draw(G, pos, node_color= list(my_best_part.values()))
     plt.show()
 
     ################## LO
     louvain_best_part = compare_with_Louvain(G)
-    nx.draw(G, pos, node_color= louvain_best_part.values())
+    nx.draw(G, pos, node_color= list(louvain_best_part.values()))
     plt.show()
 
     ################## MC
