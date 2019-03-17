@@ -8,8 +8,9 @@ Following changes are made:
 - Added missing datasets to repository
 
 
+# OLD README
 
-# Computing communities in networks using random walks
+## Computing communities in networks using random walks
 
 This project implements the paper [1] that proposes a random-walk based algorithm Walktrap to efficiently find clusters in graphs. 
 Also, I add extensive comparison tests with other algorithms and results from experiments on randomly-generated as well as real-world networks. 
