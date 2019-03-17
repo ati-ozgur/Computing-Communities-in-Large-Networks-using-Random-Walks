@@ -33,7 +33,8 @@ def walktrap(G, t, add_self_edges=True, verbose=False):
                 self.size = C1.size + C2.size
                 self.P_c = (C1.size * C1.P_c + C2.size * C2.P_c) / self.size
                 # Merge info about adjacent communities, but remove C1, C2
-                self.adj_coms = dict(C1.adj_coms.items() + C2.adj_coms.items())
+                self.adj_coms =dict( C1.adj_coms.items() | C2.adj_coms.items()) 
+
                 del self.adj_coms[C1.id]
                 del self.adj_coms[C2.id]
                 self.vertices = C1.vertices.union(C2.vertices)
