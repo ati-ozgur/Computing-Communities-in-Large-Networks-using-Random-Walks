@@ -1,3 +1,15 @@
+# Fork of https://github.com/jancio/Computing-Communities-in-Large-Networks-using-Random-Walks 
+
+Following changes are made:
+
+- Necessary changes for Python 2 to Python 3 conversion
+- Long codes in notebook is moved to separate module file.
+- Some small changes in notebook
+
+
+Unfortunately some files does not exist in repository.
+Therefore whole notebook does not work.
+
 # Computing communities in networks using random walks
 
 This project implements the paper [1] that proposes a random-walk based algorithm Walktrap to efficiently find clusters in graphs. 
