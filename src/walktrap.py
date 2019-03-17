@@ -219,3 +219,120 @@ def partition_to_plot(coms, partition):
         for v in coms[C_id].vertices:
             p_dict[v] = i
     return p_dict
+
+######################################################################
+# Comparison with Louvain algorithm: return best partition
+######################################################################
+import community
+
+def compare_with_Louvain(G, add_self_edges=True, verbose=True):
+#     # If needed, add self-edges
+#     if add_self_edges:
+#         for v in G.nodes:
+#             G.add_edge(v, v)
+    start_time = time.time()
+    part = community.best_partition(G)
+    Q = community.modularity(part, G)
+    if verbose:
+        print("Louvain algorithm:")
+        print("\tOptimal number of communities: K = ", len(np.unique(part.values())))
+        print("\tBest modularity: Q = ", Q)
+        print("\tRuntime: ", time.time() - start_time, " seconds")
+    return part # dictionary, suitable for plotting
+
+######################################################################
+# Comparison with Markov Clustering algorithm: return best partition
+######################################################################
+# import markov_clustering
+# external script Python3: appended at the end of this file
+
+######################################################################
+# Experiments on real-graphs: comparison function
+######################################################################
+
+def compare_algos(G, K_true):
+    
+    G = nx.convert_node_labels_to_integers(G)
+    pos = nx.spring_layout(G)
+    print("Ground truth: ",K_true, " communities")
+
+    # 1.) step
+    # Q vs k for various t
+    plt.figure()
+    for t in range(2,9)+[20,50,100]:#+[3,5,7,9,12,20,100]:
+        parts, coms, _, Qs = walktrap(G, t)
+        ks = np.arange(len(Qs))
+        # Best number of communities
+        K = len(Qs) - np.argmax(Qs)
+        plt.plot(ks, Qs, label='t = ' + str(t) + ", K = " + str(K))
+    plt.xlabel('iteration k')
+    plt.ylabel('Modularity Q')
+    plt.title('Modularity Q vs iteration')
+    plt.legend()
+    plt.show()
+    # eta vs k for various t
+    plt.figure()
+    for t in range(2,9)+[20,50,100]:#+[3,5,7,9,12,20,100]:
+        parts, coms, ds, _ = walktrap(G, t)
+        etas = ds[1:] / ds[0:-1]
+        ks = np.arange(len(etas)) + 1
+        # Best number of communities
+        K = 1 + len(etas) - np.argmax(etas)
+        plt.plot(ks, etas, label='t = ' + str(t) + ", K = " + str(K))
+    plt.xlabel('iteration k')
+    plt.ylabel('$\eta$')
+    plt.title('Quality $\eta$ of partition vs iteration')
+    plt.legend()
+    plt.show()
+
+
+    # 2.) Comparison
+
+    ################## WT
+    t = 2
+    start_time = time.time()
+    parts, coms, _, Qs = walktrap(G, t) 
+    wt_time = time.time() - start_time
+    Qmax_index = np.argmax(Qs)
+    print "Walktrap ( t =",str(t),") algorithm:"
+    print "\tOptimal number of communities: K = ", len(Qs) - Qmax_index
+    print "\tBest modularity: Q = ", Qs[Qmax_index]
+    print "\tRuntime: ", wt_time, " seconds"
+    my_best_part = partition_to_plot(coms, parts[Qmax_index])
+    nx.draw(G, pos, node_color= my_best_part.values())
+    plt.show()
+
+    t = 5
+    start_time = time.time()
+    parts, coms, _, Qs = walktrap(G, t) 
+    wt_time = time.time() - start_time
+    Qmax_index = np.argmax(Qs)
+    print "Walktrap ( t =",str(t),") algorithm:"
+    print "\tOptimal number of communities: K = ", len(Qs) - Qmax_index
+    print "\tBest modularity: Q = ", Qs[Qmax_index]
+    print "\tRuntime: ", wt_time, " seconds"
+    my_best_part = partition_to_plot(coms, parts[Qmax_index])
+    nx.draw(G, pos, node_color= my_best_part.values())
+    plt.show()
+
+    t = 8
+    start_time = time.time()
+    parts, coms, _, Qs = walktrap(G, t) 
+    wt_time = time.time() - start_time
+    Qmax_index = np.argmax(Qs)
+    print "Walktrap ( t =",str(t),") algorithm:"
+    print "\tOptimal number of communities: K = ", len(Qs) - Qmax_index
+    print "\tBest modularity: Q = ", Qs[Qmax_index]
+    print "\tRuntime: ", wt_time, " seconds"
+    my_best_part = partition_to_plot(coms, parts[Qmax_index])
+    nx.draw(G, pos, node_color= my_best_part.values())
+    plt.show()
+
+    ################## LO
+    louvain_best_part = compare_with_Louvain(G)
+    nx.draw(G, pos, node_color= louvain_best_part.values())
+    plt.show()
+
+    ################## MC
+    # external script
+    
