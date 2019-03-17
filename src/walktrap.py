@@ -259,7 +259,9 @@ def compare_algos(G, K_true):
     # 1.) step
     # Q vs k for various t
     plt.figure()
-    for t in range(2,9)+[20,50,100]:#+[3,5,7,9,12,20,100]:
+    list_of_t = list(range(2,9))+[20,50,100]
+    #list_of_t = [3,5,7,9,12,20,100]
+    for t in list_of_t:
         parts, coms, _, Qs = walktrap(G, t)
         ks = np.arange(len(Qs))
         # Best number of communities
@@ -272,7 +274,9 @@ def compare_algos(G, K_true):
     plt.show()
     # eta vs k for various t
     plt.figure()
-    for t in range(2,9)+[20,50,100]:#+[3,5,7,9,12,20,100]:
+    list_of_t = list(range(2,9))+[20,50,100]
+    #list_of_t = [3,5,7,9,12,20,100]
+    for t in list_of_t:
         parts, coms, ds, _ = walktrap(G, t)
         etas = ds[1:] / ds[0:-1]
         ks = np.arange(len(etas)) + 1
@@ -294,10 +298,10 @@ def compare_algos(G, K_true):
     parts, coms, _, Qs = walktrap(G, t) 
     wt_time = time.time() - start_time
     Qmax_index = np.argmax(Qs)
-    print "Walktrap ( t =",str(t),") algorithm:"
-    print "\tOptimal number of communities: K = ", len(Qs) - Qmax_index
-    print "\tBest modularity: Q = ", Qs[Qmax_index]
-    print "\tRuntime: ", wt_time, " seconds"
+    print("Walktrap ( t =",str(t),") algorithm:")
+    print("\tOptimal number of communities: K = ", len(Qs) - Qmax_index)
+    print("\tBest modularity: Q = ", Qs[Qmax_index])
+    print("\tRuntime: ", wt_time, " seconds")
     my_best_part = partition_to_plot(coms, parts[Qmax_index])
     nx.draw(G, pos, node_color= my_best_part.values())
     plt.show()
@@ -307,10 +311,10 @@ def compare_algos(G, K_true):
     parts, coms, _, Qs = walktrap(G, t) 
     wt_time = time.time() - start_time
     Qmax_index = np.argmax(Qs)
-    print "Walktrap ( t =",str(t),") algorithm:"
-    print "\tOptimal number of communities: K = ", len(Qs) - Qmax_index
-    print "\tBest modularity: Q = ", Qs[Qmax_index]
-    print "\tRuntime: ", wt_time, " seconds"
+    print("Walktrap ( t =",str(t),") algorithm:")
+    print("\tOptimal number of communities: K = ", len(Qs) - Qmax_index)
+    print("\tBest modularity: Q = ", Qs[Qmax_index])
+    print("\tRuntime: ", wt_time, " seconds")
     my_best_part = partition_to_plot(coms, parts[Qmax_index])
     nx.draw(G, pos, node_color= my_best_part.values())
     plt.show()
@@ -320,10 +324,10 @@ def compare_algos(G, K_true):
     parts, coms, _, Qs = walktrap(G, t) 
     wt_time = time.time() - start_time
     Qmax_index = np.argmax(Qs)
-    print "Walktrap ( t =",str(t),") algorithm:"
-    print "\tOptimal number of communities: K = ", len(Qs) - Qmax_index
-    print "\tBest modularity: Q = ", Qs[Qmax_index]
-    print "\tRuntime: ", wt_time, " seconds"
+    print("Walktrap ( t =",str(t),") algorithm:")
+    print("\tOptimal number of communities: K = ", len(Qs) - Qmax_index)
+    print("\tBest modularity: Q = ", Qs[Qmax_index])
+    print("\tRuntime: ", wt_time, " seconds")
     my_best_part = partition_to_plot(coms, parts[Qmax_index])
     nx.draw(G, pos, node_color= my_best_part.values())
     plt.show()
@@ -335,4 +339,3 @@ def compare_algos(G, K_true):
 
     ################## MC
     # external script
-    
